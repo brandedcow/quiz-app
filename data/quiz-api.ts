@@ -1,6 +1,10 @@
 import axios from "axios";
 
-import { type CategoryResponse } from "./api";
+import {
+  type QuestionRequestOptions,
+  type CategoryResponse,
+  type QuestionsResponse,
+} from "./api";
 
 export class QuizAPI {
   private readonly apiKey: string;
@@ -28,8 +32,30 @@ export class QuizAPI {
       });
       return response.data;
     } catch (error) {
-      console.log({ error });
-      throw new Error("Geocode API Request error");
+      console.error({ error });
+      throw new Error("Quiz api categories request error");
+    }
+  }
+
+  async getQuestions(category: string) {
+    const requestString =
+      await this._generateRequestURL<QuestionRequestOptions>(
+        this.baseURL,
+        "questions",
+        {
+          limit: 10,
+          category,
+        }
+      );
+
+    try {
+      const response = await axios.get<QuestionsResponse>(requestString, {
+        timeout: 10000,
+      });
+      return response.data;
+    } catch (error) {
+      console.error({ error });
+      throw new Error("Quiz api questions request error");
     }
   }
 

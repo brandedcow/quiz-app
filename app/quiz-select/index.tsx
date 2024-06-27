@@ -1,12 +1,18 @@
+import { QuizCategoryCard } from "@/components/QuizCategoryCard";
+import { Title } from "@/components/Title";
 import { API } from "@/data/quiz-api";
 import { useQuery } from "@tanstack/react-query";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
 export default function QuizSelect() {
   const { isPending, isError, data } = useQuery({
     queryKey: ["categories"],
     queryFn: () => API.getCategories(),
   });
+
+  if (isPending) {
+    return <ActivityIndicator size="large" />;
+  }
 
   if (data === undefined || isError) {
     return (
@@ -16,16 +22,22 @@ export default function QuizSelect() {
     );
   }
 
-  if (isPending) {
-    return <ActivityIndicator size="large" />;
-  }
-
   return (
     <View>
-      <Text>Quiz Select</Text>
-      {data.map(({ name }) => (
-        <Text>{name}</Text>
-      ))}
+      <Title label="Category Select" />
+
+      <View style={styles.buttonContainer}>
+        {data.map(({ id, name }) => (
+          <QuizCategoryCard key={id} id={id} label={name} />
+        ))}
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    gap: 12,
+    paddingHorizontal: 24,
+  },
+});

@@ -1,3 +1,4 @@
+import { Title } from "@/components/Title";
 import { router } from "expo-router";
 import { Button, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -16,7 +17,8 @@ export default function Welcome() {
           alignItems: "center",
         }}
       >
-        <Text style={styles.title}>Quiz App</Text>
+        <Title label="Quiz App" />
+
         <Pressable style={styles.button} onPress={handlePress}>
           <Text style={styles.buttonLabel}>Start Quiz</Text>
         </Pressable>
@@ -50,8 +52,5 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: "row",
     gap: 50,
-  },
-  title: {
-    fontSize: 30,
   },
 });
