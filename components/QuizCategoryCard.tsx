@@ -1,13 +1,21 @@
+import { useQuizStore } from "@/store/useQuizStore";
+import { router } from "expo-router";
 import { Pressable, StyleSheet, Text } from "react-native";
 
 type Props = {
-  id: number;
   label: string;
 };
 
 export function QuizCategoryCard({ label }: Props) {
+  const { setSelectedCategory } = useQuizStore();
+
+  const handlePress = () => {
+    setSelectedCategory(label);
+    router.push("quiz");
+  };
+
   return (
-    <Pressable style={styles.button}>
+    <Pressable style={styles.button} onPress={handlePress}>
       <Text>{label}</Text>
     </Pressable>
   );

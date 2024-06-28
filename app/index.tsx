@@ -1,7 +1,9 @@
 import { Title } from "@/components/Title";
 import { router } from "expo-router";
-import { Button, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+export { ErrorBoundary } from "expo-router";
 
 export default function Welcome() {
   const handlePress = () => {
@@ -9,7 +11,7 @@ export default function Welcome() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
+    <SafeAreaView style={{ flex: 1 }} edges={["bottom", "top"]}>
       <View
         style={{
           flex: 1,
@@ -17,7 +19,7 @@ export default function Welcome() {
           alignItems: "center",
         }}
       >
-        <Title label="Quiz App" />
+        <Title>Quiz App</Title>
 
         <Pressable style={styles.button} onPress={handlePress}>
           <Text style={styles.buttonLabel}>Start Quiz</Text>
